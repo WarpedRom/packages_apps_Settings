@@ -32,6 +32,7 @@ public class UserInterface extends SettingsPreferenceFragment {
 	private static final String PREF_VOLUME_MUSIC = "volume_music_controls";
 	private static final String PREF_ENABLE_VOLUME_OPTIONS = "enable_volume_options";
 	
+	
 	Preference mCustomLabel;
     CheckBoxPreference mStatusBarNotifCount;
 	CheckBoxPreference mUseAltResolver;
@@ -103,7 +104,7 @@ public class UserInterface extends SettingsPreferenceFragment {
 									   Settings.System.VOLUME_WAKE_SCREEN,
 									   ((CheckBoxPreference) preference).isChecked());
             return true;
-        } else if (preference == mVolumeMusic) {
+		} else if (preference == mVolumeMusic) {
 			
             Settings.System.putBoolean(getActivity().getContentResolver(),
 									   Settings.System.VOLUME_MUSIC_CONTROLS,

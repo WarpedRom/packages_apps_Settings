@@ -1442,6 +1442,7 @@
         <activity android:name=".warped.StatusBarBattery" />
         <activity android:name=".warped.LockscreenTargets" />
         <activity android:name=".warped.LockscreenInterface" />
+        <activity android:name=".warped.LockScreenSettings" />
         <activity android:name=".warped.StatusBarInterface" />
         <activity android:name=".warped.NavBarInterface" />
         <activity android:name=".warped.NavigationBarSettings" />
