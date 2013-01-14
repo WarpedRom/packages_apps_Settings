@@ -37,7 +37,6 @@ OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
     ColorPickerPreference mNavigationBarColor;
     ColorPickerPreference mNavigationBarGlowColor;
     SeekBarPreference mButtonAlpha;
-    SeekBarPreference mNavBarAlpha;
     ColorPickerPreference mNavBar;
     Preference mStockColor;
     @Override
@@ -68,9 +67,6 @@ OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 	mNavBar = (ColorPickerPreference) findPreference(PREF_NAV_BAR_COLOR);
 	mNavBar.setOnPreferenceChangeListener(this);
 	
-	mNavBarAlpha = (SeekBarPreference) findPreference("navigation_bar_alpha");
-        mNavBarAlpha.setOnPreferenceChangeListener(this);
-	
         mGlowTimes = (ListPreference) findPreference(PREF_GLOW_TIMES);
         mGlowTimes.setOnPreferenceChangeListener(this);
 		
@@ -88,17 +84,6 @@ OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 		setHasOptionsMenu(true);
        		updateGlowTimesSummary();
 	}
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(mNavBarAlpha != null) {
-            final float defaultNavAlpha = Settings.System.getFloat(getActivity()
-                    .getContentResolver(), Settings.System.NAVIGATION_BAR_ALPHA,
-                    0.8f);
-            mNavBarAlpha.setInitValue(Math.round(defaultNavAlpha * 100));
-        }
-    }
 	
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -148,11 +133,6 @@ OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.SYSTEMUI_NAVBAR_COLOR, intHex);
             return true;
-	} else if (preference == mNavBarAlpha) {
-            float val = (float) (Integer.parseInt((String)newValue) * 0.01);
-            return Settings.System.putFloat(getActivity().getContentResolver(),
-                    Settings.System.NAVIGATION_BAR_ALPHA,
-                    val);
         } else if (preference == mNavigationBarGlowColor) {
             String hex = ColorPickerPreference.convertToARGB(
 			Integer.valueOf(String.valueOf(newValue)));

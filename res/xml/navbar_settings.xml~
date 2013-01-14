@@ -7,13 +7,6 @@
 	android:summary="@string/navbar_icon_list_summary"
 	android:entries="@array/navbar_icon_entries"
 	android:entryValues="@array/navbar_icon_values" />
-
-    <ListPreference
-        android:key="nav_bar_transparency"
-        android:title="@string/navigation_bar_transparency_title"
-        android:summary="@string/navigation_bar_transparency_summary"
-        android:entries="@array/entries_transparency"
-        android:entryValues="@array/values_transparency"/>
                 
     <ListPreference
         android:entries="@array/glow_times_entries"
