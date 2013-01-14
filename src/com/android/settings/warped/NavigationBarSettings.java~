@@ -20,7 +20,7 @@ import com.android.settings.util.Helpers;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class NavigationBarSettings extends SettingsPreferenceFragment implements
-OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+OnPreferenceChangeListener {
 	
     private static final String PREF_NAV_ICON = "navbar_icon_list";
     private static final String PREF_NAV_BAR_COLOR = "interface_navbar_color";

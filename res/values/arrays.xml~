@@ -935,6 +935,22 @@
         <item>@*android:drawable/ic_lockscreen_google_normal</item>
         <item>@*android:drawable/ic_lockscreen_twitter_normal</item>
     </string-array>
+
+    <string-array name="entries_transparency">
+        <item>0%</item>
+        <item>25%</item>
+        <item>50%</item>
+        <item>75%</item>
+        <item>100%</item>
+    </string-array>
+
+    <string-array name="values_transparency" translatable="false">
+        <item>100</item>
+        <item>75</item>
+        <item>50</item>
+        <item>25</item>
+        <item>0</item>
+    </string-array>
      
     <!-- Navbar Icon styles -->
     <string-array name="navbar_icon_entries" translatable="false">

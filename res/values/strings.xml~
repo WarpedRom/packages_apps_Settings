@@ -4581,7 +4581,8 @@
     <string name="glow_times_normal">Normal</string>
     <string name="button_transparency_title">Nav button transparency</string>
     <string name="menu_nav_bar_reset">Reset</string>
-    <string name="navigation_bar_alpha_title">Navigation bar opacity</string>
+    <string name="navigation_bar_transparency_title">Transparency</string>
+    <string name="navigation_bar_transparency_summary">Adjust navigation bar transparency</string>
     <string name="navigation_bar_edit_title">Button customization</string>
     <string name="navigation_bar_edit_summary">Edit button layout</string>
     <string name="navigation_bar_height">Button height</string>
