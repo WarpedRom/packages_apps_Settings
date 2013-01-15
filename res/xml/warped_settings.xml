@@ -38,5 +38,11 @@
             android:key="user_interface"
             android:fragment="com.android.settings.warped.UserInterface"
             android:title="@string/user_interface_title" />
+
+	<PreferenceScreen
+	    android:id="@+id/led"
+            android:fragment="com.android.settings.warped.LEDControl"
+            android:title="@string/led_options"
+            android:summary="@string/header_summary_led" />
             
 </PreferenceScreen>

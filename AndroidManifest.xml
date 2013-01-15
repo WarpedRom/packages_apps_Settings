@@ -1447,6 +1447,7 @@
         <activity android:name=".warped.NavBarInterface" />
         <activity android:name=".warped.NavigationBarSettings" />
         <activity android:name=".warped.StatusBarToggles" />
+        <activity android:name=".warped.LEDControl" />
 
         <!-- Pseudo-activity used to provide an intent-filter entry point to encryption settings -->
         <activity android:name="Settings$CryptKeeperSettingsActivity"
