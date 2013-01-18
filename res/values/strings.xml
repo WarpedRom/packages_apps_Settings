@@ -4565,8 +4565,9 @@
     <string name="balloon_style">Balloon Icons</string>
     <string name="metro_style">Metro Icons</string>
     <string name="playstation_style">Playstation Icons</string>
-    <string name="iphone_black_style">Black Iphone Icon</string>
-    <string name="iphone_white_style">White Iphone Icon</string>
+    <string name="iphone_black_style">Black Iphone Icons</string>
+    <string name="iphone_white_style">White Iphone Icons</string>
+    <string name="baked_style">Baked Icons</string>
     <string name="text_style">Text Icons</string>
     <string name="navbar_icon_list">Navigation Bar Icon Sets</string>
     <string name="navbar_icon_list_summary">Requires UI restart</string>

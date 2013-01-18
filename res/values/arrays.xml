@@ -947,6 +947,7 @@
         <item>@string/playstation_style</item>
 	<item>@string/iphone_black_style</item>
 	<item>@string/iphone_white_style</item>
+	<item>@string/baked_style</item>
         <item>@string/text_style</item>
     </string-array>
     
@@ -961,6 +962,7 @@
 	<item>7</item>
 	<item>8</item>
         <item>9</item>
+	<item>10</item>
     </string-array>
     
     <string-array name="glow_times_entries">
