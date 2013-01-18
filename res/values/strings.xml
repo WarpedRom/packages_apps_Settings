@@ -4795,4 +4795,12 @@
     <!-- Performance Settings : 16bpp Alpha -->
     <string name="pref_use_16bpp_alpha_title">16bit transparency</string>
     <string name="pref_use_16bpp_alpha_summary">Better graphics performance, but lower quality and may cause visual artifacts (requires reboot)</string>
+
+    <string name="voltage_control">Voltage Control</string>
+    <string name="freq">Frequency</string>
+    <string name="current">mV current</string>
+    <string name="saved">mV saved</string>
+    <string name="error_values">Error getting values</string>
+    <string name="set_boot">Set On Boot</string>
+    <string name="apply_values">Apply Values</string>
 </resources>

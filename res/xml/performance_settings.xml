@@ -25,6 +25,15 @@ limitations under the License.
         android:title="@string/processor_title"
         android:summary="@string/processor_summary" />
 
+    <PreferenceScreen android:key="volt_control"
+        android:title="Voltage Control">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetClass="com.android.settings.VoltageControlActivity"
+            android:targetPackage="com.android.settings" />
+    </PreferenceScreen>
+
+
     <PreferenceScreen
         android:key="ioscheduler"
         android:fragment="com.android.settings.warped.IOScheduler"

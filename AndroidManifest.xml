@@ -533,6 +533,13 @@
             </intent-filter>
         </activity>
 
+	<activity android:name="VoltageControlActivity"
+            android:label="@string/voltage_control">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
         <!-- Keep compatibility with old shortcuts. -->
         <activity-alias android:name="UserDictionarySettings"
                 android:label="@string/user_dict_settings_titlebar"
