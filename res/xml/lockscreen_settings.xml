@@ -6,5 +6,20 @@
             android:key="lockscreen_all_widgets"
             android:title="@string/lockscreen_all_widgets_title"
             android:summary="@string/lockscreen_all_widgets_summary" />
+
+        <CheckBoxPreference
+            android:key="lockscreen_battery"
+            android:title="@string/lockscreen_battery_title"
+            android:summary="@string/lockscreen_battery_summary" />
+
+	<CheckBoxPreference
+            android:key="lockscreen_auto_rotate"
+            android:title="@string/lockscreen_auto_rotate_title"
+            android:summary="@string/lockscreen_auto_rotate_summary" />
+
+	<net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="lockscreen_text_color"
+            android:title="@string/lockscreen_text_color_title"
+            android:defaultValue="#ffffffff" />
             
 </PreferenceScreen>
