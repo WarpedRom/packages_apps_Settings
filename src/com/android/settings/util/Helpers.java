@@ -139,6 +139,10 @@ public class Helpers {
         }
         return (cmd.su.runWaitFor("busybox mount -o remount," + mount + " /system").success());
     }
+	
+	public static boolean fileExists(String filename) {
+        return new File(filename).exists();
+    }
 
     public static String readOneLine(String fname) {
         BufferedReader br;
@@ -171,7 +175,7 @@ public class Helpers {
     }
 
     public static boolean writeOneLine(String fname, String value) {
-        try {
+		try {
             FileWriter fw = new FileWriter(fname);
             try {
                 fw.write(value);
@@ -181,7 +185,7 @@ public class Helpers {
         } catch (IOException e) {
             String Error = "Error writing to " + fname + ". Exception: ";
             Log.e(TAG, Error, e);
-            return false;
+	        return false;
         }
         return true;
     }
@@ -299,7 +303,7 @@ public class Helpers {
     public static void setSystemProp(String prop, String val) {
         new CMDProcessor().su.run("setprop " + prop + " " + val);
     }
-
+	
     public static String getSystemProp(String prop, String def) {
         String result = getSystemProp(prop);
         return result == null ? def : result;

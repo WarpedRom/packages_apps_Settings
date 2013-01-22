@@ -27,6 +27,8 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
+import com.android.settings.util.Helpers;
+
 //
 // I/O Scheduler Related Settings
 //
@@ -62,9 +64,9 @@ public class IOScheduler extends SettingsPreferenceFragment implements
         mIOSchedulerPref = (ListPreference) prefScreen.findPreference(IOSCHED_PREF);
 
         /* I/O scheduler
-Some systems might not use I/O schedulers */
-        if (!Utils.fileExists(IOSCHED_LIST_FILE) ||
-            (availableIOSchedulersLine = Utils.fileReadOneLine(IOSCHED_LIST_FILE)) == null) {
+		 Some systems might not use I/O schedulers */
+        if (!Helpers.fileExists(IOSCHED_LIST_FILE) ||
+            (availableIOSchedulersLine = Helpers.readOneLine(IOSCHED_LIST_FILE)) == null) {
             prefScreen.removePreference(mIOSchedulerPref);
 
         } else {
@@ -76,7 +78,7 @@ Some systems might not use I/O schedulers */
 
             mIOSchedulerPref.setEntryValues(availableIOSchedulers);
             mIOSchedulerPref.setEntries(availableIOSchedulers);
-            if (currentIOScheduler != null)
+		if (currentIOScheduler != null)
                 mIOSchedulerPref.setValue(currentIOScheduler);
             mIOSchedulerPref.setSummary(String.format(mIOSchedulerFormat, currentIOScheduler));
             mIOSchedulerPref.setOnPreferenceChangeListener(this);
@@ -91,8 +93,8 @@ Some systems might not use I/O schedulers */
 
         super.onResume();
 
-        if (Utils.fileExists(IOSCHED_LIST_FILE) &&
-            (availableIOSchedulersLine = Utils.fileReadOneLine(IOSCHED_LIST_FILE)) != null) {
+        if (Helpers.fileExists(IOSCHED_LIST_FILE) &&
+            (availableIOSchedulersLine = Helpers.readOneLine(IOSCHED_LIST_FILE)) != null) {
             bropen = availableIOSchedulersLine.indexOf("[");
             brclose = availableIOSchedulersLine.lastIndexOf("]");
             if (bropen >= 0 && brclose >= 0) {
@@ -110,7 +112,7 @@ Some systems might not use I/O schedulers */
                 fname = IOSCHED_LIST_FILE;
             }
 
-            if (Utils.fileWriteOneLine(fname, (String) newValue)) {
+            if (Helpers.writeOneLine(fname, (String) newValue)) {
                 if (preference == mIOSchedulerPref) {
                     mIOSchedulerPref.setSummary(String.format(mIOSchedulerFormat, (String) newValue));
                 }
