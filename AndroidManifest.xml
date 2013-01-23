@@ -1452,11 +1452,15 @@
         <activity android:name=".warped.LockscreenInterface" />
         <activity android:name=".warped.LockScreenSettings" />
         <activity android:name=".warped.StatusBarInterface" />
+        <activity android:name=".warped.PropInterface" />
         <activity android:name=".warped.NavBarInterface" />
         <activity android:name=".warped.NavigationBarSettings" />
         <activity android:name=".warped.StatusBarToggles" />
         <activity android:name=".warped.LEDControl" />
-	<activity android:name=".warped.PerformanceSettings" />
+	    <activity android:name=".warped.PerformanceSettings" />
+    
+        <activity android:name=".util.ShowBuildProp" />
+        <activity android:name=".warped.PropModder" />
 
         <!-- Pseudo-activity used to provide an intent-filter entry point to encryption settings -->
         <activity android:name="Settings$CryptKeeperSettingsActivity"

@@ -4,6 +4,7 @@ package com.android.settings.util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -18,6 +19,7 @@ import android.net.NetworkInfo;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.Toast;
+import java.util.Properties;
 
 import com.android.settings.util.CMDProcessor.CommandResult;
 
@@ -315,6 +317,37 @@ public class Helpers {
             return cr.stdout;
         } else {
             return null;
+        }
+    }
+	
+	/*
+     * Find value of build.prop item (/system can be ro or rw)
+     *
+     * @param prop /system/build.prop property name to find value of
+     *
+     * @returns String value of @param:prop
+     */
+    public static String findBuildPropValueOf(String prop) {
+        String mBuildPath = "/system/build.prop";
+        String DISABLE = "disable";
+        String value = null;
+        try {
+            //create properties construct and load build.prop
+            Properties mProps = new Properties();
+            mProps.load(new FileInputStream(mBuildPath));
+            //get the property
+            value = mProps.getProperty(prop, DISABLE);
+            Log.d(TAG, String.format("Helpers:findBuildPropValueOf found {%s} with the value (%s)", prop, value));
+        } catch (IOException ioe) {
+            Log.d(TAG, "failed to load input stream");
+        } catch (NullPointerException npe) {
+            //swallowed thrown by ill formatted requests
+        }
+		
+        if (value != null) {
+            return value;
+        } else {
+            return DISABLE;
         }
     }
 }
