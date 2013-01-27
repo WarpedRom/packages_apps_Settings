@@ -24,7 +24,6 @@ public class UserInterface extends SettingsPreferenceFragment {
 	
     public static final String TAG = "UserInterface";
 	
-    private static final String PREF_STATUS_BAR_NOTIF_COUNT = "status_bar_notif_count";
     private static final String PREF_CUSTOM_CARRIER_LABEL = "custom_carrier_label";
 	private static final String PREF_USE_ALT_RESOLVER = "use_alt_resolver";
 	private static final String PREF_VIBRATE_NOTIF_EXPAND = "vibrate_notif_expand";
@@ -34,7 +33,6 @@ public class UserInterface extends SettingsPreferenceFragment {
 	
 	
 	Preference mCustomLabel;
-    CheckBoxPreference mStatusBarNotifCount;
 	CheckBoxPreference mUseAltResolver;
 	CheckBoxPreference mVibrateOnExpand;
 	CheckBoxPreference mVolumeRockerWake;
@@ -49,11 +47,6 @@ public class UserInterface extends SettingsPreferenceFragment {
         setTitle(R.string.user_interface_title);
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.user_interface);
-		
-        mStatusBarNotifCount = (CheckBoxPreference) findPreference(PREF_STATUS_BAR_NOTIF_COUNT);
-        mStatusBarNotifCount.setChecked(Settings.System.getBoolean(mContext
-																   .getContentResolver(), Settings.System.STATUSBAR_NOTIF_COUNT,
-																   false));
 		
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
@@ -83,12 +76,7 @@ public class UserInterface extends SettingsPreferenceFragment {
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
 										 final Preference preference) {
-        if (preference == mStatusBarNotifCount) {
-            Settings.System.putBoolean(mContext.getContentResolver(),
-									   Settings.System.STATUSBAR_NOTIF_COUNT,
-									   ((CheckBoxPreference) preference).isChecked());
-            return true;
-		} else if (preference == mUseAltResolver) {
+        if (preference == mUseAltResolver) {
 			Settings.System.putBoolean(getActivity().getContentResolver(),
 				Settings.System.ACTIVITY_RESOLVER_USE_ALT,
 			    isCheckBoxPreferenceChecked(preference));

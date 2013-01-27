@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
-            
-        <CheckBoxPreference
+        
+    <CheckBoxPreference
             android:key="lockscreen_all_widgets"
             android:title="@string/lockscreen_all_widgets_title"
             android:summary="@string/lockscreen_all_widgets_summary" />
 
-        <CheckBoxPreference
+    <CheckBoxPreference
             android:key="lockscreen_battery"
             android:title="@string/lockscreen_battery_title"
             android:summary="@string/lockscreen_battery_summary" />
