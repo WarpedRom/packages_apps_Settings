@@ -66,7 +66,7 @@ import net.margaritov.preference.colorpicker.ColorPickerPreference;
 public class NavigationBarSettings extends SettingsPreferenceFragment implements
 OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
 	
-	private static final String TAG = "NavBar";
+    private static final String TAG = "NavBar";
     private static final String PREF_NAV_ICON = "navbar_icon_list";
     private static final String PREF_NAV_BAR_COLOR = "interface_navbar_color";
     private static final String PREF_NAV_BAR_COLOR_DEF = "interface_navbar_color_default";
@@ -74,10 +74,10 @@ OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
     private static final String PREF_NAV_GLOW_COLOR = "nav_button_glow_color";
     private static final String PREF_GLOW_TIMES = "glow_times";
     private static final String KEY_NAV_BUTTONS_HEIGHT = "nav_buttons_height";
-	private static final String PREF_MENU_UNLOCK = "pref_menu_display";
-	private static final String PREF_NAVBAR_MENU_DISPLAY = "navbar_menu_display";
+    private static final String PREF_MENU_UNLOCK = "pref_menu_display";
+    private static final String PREF_NAVBAR_MENU_DISPLAY = "navbar_menu_display";
     private static final String PREF_NAVBAR_QTY = "navbar_qty";
-	public static final int REQUEST_PICK_CUSTOM_ICON = 200;
+    public static final int REQUEST_PICK_CUSTOM_ICON = 200;
     public static final int REQUEST_PICK_LANDSCAPE_ICON = 201;
     private static final int DIALOG_NAVBAR_ENABLE = 203;
     private static final int DIALOG_NAVBAR_HEIGHT_REBOOT = 204;
@@ -88,14 +88,14 @@ OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
     ListPreference mNavBarIcon;
     ListPreference mGlowTimes;
     ListPreference mNavButtonsHeight;
-	ListPreference menuDisplayLocation;
+    ListPreference menuDisplayLocation;
     ListPreference mNavBarMenuDisplay;
     ColorPickerPreference mNavigationBarColor;
     ColorPickerPreference mNavigationBarGlowColor;
     SeekBarPreference mButtonAlpha;
     ColorPickerPreference mNavBar;
-	CheckBoxPreference mEnableNavigationBar;
-	ListPreference mNavBarButtonQty;
+    CheckBoxPreference mEnableNavigationBar;
+    ListPreference mNavBarButtonQty;
 	
 	Preference mPendingPreference;
     private ShortcutPickerHelper mPicker;
@@ -119,8 +119,8 @@ OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
 		menuDisplayLocation = (ListPreference) findPreference(PREF_MENU_UNLOCK);
         menuDisplayLocation.setOnPreferenceChangeListener(this);
         menuDisplayLocation.setValue(Settings.System.getInt(getActivity()
-															.getContentResolver(), Settings.System.MENU_LOCATION,
-															0) + "");
+	.getContentResolver(), Settings.System.MENU_LOCATION,
+		0) + "");
 		
         mNavBarMenuDisplay = (ListPreference) findPreference(PREF_NAVBAR_MENU_DISPLAY);
         mNavBarMenuDisplay.setOnPreferenceChangeListener(this);
@@ -191,33 +191,33 @@ OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
             case R.id.reset:
 				
                 Settings.System.putInt(getActivity().getContentResolver(),
-									   Settings.System.NAVIGATION_BAR_TINT, Integer.MIN_VALUE);
-				Settings.System.putInt(getActivity().getContentResolver(),
-									   Settings.System.SYSTEMUI_NAVBAR_COLOR, Integer.MIN_VALUE);
+			Settings.System.NAVIGATION_BAR_TINT, Integer.MIN_VALUE);
+		Settings.System.putInt(getActivity().getContentResolver(),
+			Settings.System.SYSTEMUI_NAVBAR_COLOR, Integer.MIN_VALUE);
                 Settings.System.putInt(getActivity().getContentResolver(),
-									   Settings.System.NAVIGATION_BAR_GLOW_TINT, Integer.MIN_VALUE);
-				Settings.System.putInt(getActivity().getContentResolver(),
-									   Settings.System.NAVIGATION_BAR_BUTTONS_QTY, 3);
+			Settings.System.NAVIGATION_BAR_GLOW_TINT, Integer.MIN_VALUE);
+		Settings.System.putInt(getActivity().getContentResolver(),
+			 Settings.System.NAVIGATION_BAR_BUTTONS_QTY, 3);
 				
 				
                 Settings.System.putString(getActivity().getContentResolver(),
-										  Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[0], "**back**");
+			Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[0], "**back**");
                 Settings.System.putString(getActivity().getContentResolver(),
-										  Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[1], "**home**");
+			Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[1], "**home**");
                 Settings.System.putString(getActivity().getContentResolver(),
-										  Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[2], "**recents**");
-				Settings.System.putString(getActivity().getContentResolver(),
-										  Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[0], "**null**");
+			Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[2], "**recents**");
+		Settings.System.putString(getActivity().getContentResolver(),
+			Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[0], "**null**");
                 Settings.System.putString(getActivity().getContentResolver(),
-										  Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[1], "**null**");
+			Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[1], "**null**");
                 Settings.System.putString(getActivity().getContentResolver(),
-										  Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[2], "**null**");
+			Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[2], "**null**");
                 Settings.System.putString(getActivity().getContentResolver(),
-										  Settings.System.NAVIGATION_CUSTOM_APP_ICONS[0], "");
+			Settings.System.NAVIGATION_CUSTOM_APP_ICONS[0], "");
                 Settings.System.putString(getActivity().getContentResolver(),
-										  Settings.System.NAVIGATION_CUSTOM_APP_ICONS[1], "");
+			Settings.System.NAVIGATION_CUSTOM_APP_ICONS[1], "");
                 Settings.System.putString(getActivity().getContentResolver(),
-										  Settings.System.NAVIGATION_CUSTOM_APP_ICONS[2], "");
+			Settings.System.NAVIGATION_CUSTOM_APP_ICONS[2], "");
                 refreshSettings();
 				return true;
             default:
@@ -252,8 +252,8 @@ OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
             Settings.System.putInt(getActivity().getContentResolver(),
 			Settings.System.NAVIGATION_BAR_GLOW_TINT, intHex);
             return true;
-		}else if (preference == menuDisplayLocation) {
-				Settings.System.putInt(getActivity().getContentResolver(),
+	}else if (preference == menuDisplayLocation) {
+		Settings.System.putInt(getActivity().getContentResolver(),
 									   Settings.System.MENU_LOCATION, Integer.parseInt((String) newValue));
 				return true;
 		} else if (preference == mNavBarMenuDisplay) {

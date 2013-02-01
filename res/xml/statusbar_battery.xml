@@ -9,6 +9,27 @@
 			android:entryValues="@array/battery_icon_values" />
 
 	<PreferenceCategory
+			android:title="Text Only Battery Colors" >
+	
+	<net.margaritov.preference.colorpicker.ColorPickerPreference
+			android:key="battery_text_color"
+			android:title="@string/battery_text_color"
+			android:defaultValue="#33B5E5" />
+
+	<net.margaritov.preference.colorpicker.ColorPickerPreference
+			android:key="battery_text_plugged_color"
+			android:title="@string/battery_text_plugged_color"
+			android:defaultValue="#99cc00" />
+
+	<net.margaritov.preference.colorpicker.ColorPickerPreference
+			android:key="battery_text_low_color"
+			android:title="@string/battery_text_low_color"
+			android:defaultValue="#ff4444" />
+
+	</PreferenceCategory>
+	
+
+	<PreferenceCategory
 		android:key="battery_bar_cat"
 		android:title="@string/battery_bar_cat">
 
