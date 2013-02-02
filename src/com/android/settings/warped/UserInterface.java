@@ -11,16 +11,19 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 
 import com.android.settings.SettingsPreferenceFragment;
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 import com.android.settings.R;
 import com.android.settings.util.Helpers;
 
-public class UserInterface extends SettingsPreferenceFragment {
+public class UserInterface extends SettingsPreferenceFragment implements
+OnPreferenceChangeListener {
 	
     public static final String TAG = "UserInterface";
 	
@@ -30,9 +33,11 @@ public class UserInterface extends SettingsPreferenceFragment {
 	private static final String PREF_VOLUME_ROCKER_WAKE = "volume_rocker_wake";
 	private static final String PREF_VOLUME_MUSIC = "volume_music_controls";
 	private static final String PREF_ENABLE_VOLUME_OPTIONS = "enable_volume_options";
+	private static final String PREF_STATUSBAR_COLOR = "statusbar_background_color";
 	
 	
 	Preference mCustomLabel;
+	ColorPickerPreference mBackgroundColor;
 	CheckBoxPreference mUseAltResolver;
 	CheckBoxPreference mVibrateOnExpand;
 	CheckBoxPreference mVolumeRockerWake;
@@ -50,6 +55,9 @@ public class UserInterface extends SettingsPreferenceFragment {
 		
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
+	
+	mBackgroundColor = (ColorPickerPreference) findPreference(PREF_STATUSBAR_COLOR);
+        mBackgroundColor.setOnPreferenceChangeListener(this);
 		
 		mUseAltResolver = (CheckBoxPreference) findPreference(PREF_USE_ALT_RESOLVER);
 		mUseAltResolver.setChecked(Settings.System.getBoolean(mContext.getContentResolver(),
@@ -71,6 +79,21 @@ public class UserInterface extends SettingsPreferenceFragment {
         mVolumeMusic.setChecked(Settings.System.getBoolean(getActivity().getContentResolver(),
 								   Settings.System.VOLUME_MUSIC_CONTROLS, false));
 		
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference == mBackgroundColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer
+	    .valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+			
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+	    Settings.System.STATUSBAR_BACKGROUND_COLOR, intHex);
+            return true;
+	}
+	return false;
     }
 	
     @Override

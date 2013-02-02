@@ -6,6 +6,11 @@
         <Preference
             android:key="custom_carrier_label"
             android:title="@string/custom_carrier_label_title" />
+
+	<net.margaritov.preference.colorpicker.ColorPickerPreference
+			android:key="statusbar_background_color"
+			android:title="@string/statusbar_background_color"
+			android:defaultValue="#000000" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="General Behavior">

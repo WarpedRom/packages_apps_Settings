@@ -4470,6 +4470,7 @@
     <string name="battery_bar_thickness_title">Battery bar thickness</string>
     <string name="battery_bar_animate_title">Charging animation</string>
     <string name="battery_bar_animate_summary">The charging animation may result in a poor user experience. Enable at your own discretion.</string>
+    <string name="statusbar_background_color">Status Bar Color</string>
     
     <!-- toggle style -->
     <string name="icon_only">Icon only</string>
