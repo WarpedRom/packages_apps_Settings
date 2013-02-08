@@ -34,6 +34,7 @@ OnPreferenceChangeListener {
 	private static final String PREF_VOLUME_MUSIC = "volume_music_controls";
 	private static final String PREF_ENABLE_VOLUME_OPTIONS = "enable_volume_options";
 	private static final String PREF_STATUSBAR_COLOR = "statusbar_background_color";
+	private static final String PREF_RECENT_KILL_ALL = "recent_kill_all";
 	
 	
 	Preference mCustomLabel;
@@ -43,6 +44,7 @@ OnPreferenceChangeListener {
 	CheckBoxPreference mVolumeRockerWake;
 	CheckBoxPreference mVolumeMusic;
 	CheckBoxPreference mEnableVolumeOptions;
+	CheckBoxPreference mRecentKillAll;
 	
     String mCustomLabelText = null;
 	
@@ -55,6 +57,10 @@ OnPreferenceChangeListener {
 		
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
+
+	mRecentKillAll = (CheckBoxPreference) findPreference(PREF_RECENT_KILL_ALL);
+        mRecentKillAll.setChecked(Settings.System.getBoolean(getActivity ().getContentResolver(),
+                Settings.System.RECENT_KILL_ALL_BUTTON, false));
 	
 	mBackgroundColor = (ColorPickerPreference) findPreference(PREF_STATUSBAR_COLOR);
         mBackgroundColor.setOnPreferenceChangeListener(this);
@@ -126,6 +132,13 @@ OnPreferenceChangeListener {
 			Settings.System.putInt(getActivity().getContentResolver(),
 								   Settings.System.ENABLE_VOLUME_OPTIONS, checked ? 1 : 0);
 			return true;
+
+	} else if (preference == mRecentKillAll) {
+            boolean checked = ((CheckBoxPreference)preference).isChecked();
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.RECENT_KILL_ALL_BUTTON, checked ? true : false);
+            return true;
+
         } else if (preference == mCustomLabel) {
             AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 			

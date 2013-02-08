@@ -38,14 +38,16 @@ public class StatusBarToggles extends SettingsPreferenceFragment implements
 	   OnPreferenceChangeListener {
 	
     private static final String TAG = "TogglesLayout";
-	
     private static final String PREF_ENABLE_TOGGLES = "enabled_toggles";
-		   
-	private static final String PREF_TOGGLES_PER_ROW = "toggles_per_row";
+    private static final String PREF_TOGGLES_PER_ROW = "toggles_per_row";
+    private static final String PREF_ENABLE_FASTTOGGLE = "enable_fast_toggle";
+    private static final String PREF_CHOOSE_FASTTOGGLE_SIDE = "choose_fast_toggle_side";
 	
     Preference mEnabledToggles;
     Preference mLayout;
     ListPreference mTogglesPerRow;
+    CheckBoxPreference mFastToggle;
+    ListPreference mChooseFastToggleSide;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,11 +58,15 @@ public class StatusBarToggles extends SettingsPreferenceFragment implements
 		
         mEnabledToggles = findPreference(PREF_ENABLE_TOGGLES);
 		
-		mTogglesPerRow = (ListPreference) findPreference(PREF_TOGGLES_PER_ROW);
-		mTogglesPerRow.setOnPreferenceChangeListener(this);
-		mTogglesPerRow.setValue(Settings.System.getInt(getActivity().getContentResolver(),
+	mTogglesPerRow = (ListPreference) findPreference(PREF_TOGGLES_PER_ROW);
+	mTogglesPerRow.setOnPreferenceChangeListener(this);
+	mTogglesPerRow.setValue(Settings.System.getInt(getActivity().getContentResolver(),
 						   Settings.System.QUICK_TOGGLES_PER_ROW, 3) + "");
         mLayout = findPreference("toggles");
+	mChooseFastToggleSide = (ListPreference) findPreference(PREF_CHOOSE_FASTTOGGLE_SIDE);
+        mChooseFastToggleSide.setOnPreferenceChangeListener(this);
+        mChooseFastToggleSide.setValue(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.CHOOSE_FASTTOGGLE_SIDE, 1) + "");
 		
     }
 	
@@ -69,8 +75,23 @@ public class StatusBarToggles extends SettingsPreferenceFragment implements
 		if (preference == mTogglesPerRow) {
 			int val = Integer.parseInt((String) newValue);
 			Settings.System.putInt(getActivity().getContentResolver(),
-								   Settings.System.QUICK_TOGGLES_PER_ROW, val);
-		}
+				 Settings.System.QUICK_TOGGLES_PER_ROW, val);
+		} else if (preference == mFastToggle) {
+            		boolean val = (Boolean) newValue;
+            		Settings.System.putBoolean(getActivity().getContentResolver(),
+                    		Settings.System.FAST_TOGGLE, val);
+            			getActivity().getBaseContext().getContentResolver().notifyChange
+				(Settings.System.getUriFor(Settings.System.FAST_TOGGLE), null);
+            		return true;
+        	} else if (preference == mChooseFastToggleSide) {
+           	 int val = Integer.parseInt((String) newValue);
+            		Settings.System.putInt(getActivity().getContentResolver(),
+                   	Settings.System.CHOOSE_FASTTOGGLE_SIDE, val);
+            		getActivity().getBaseContext().getContentResolver().notifyChange
+			(Settings.System.getUriFor(Settings.System.CHOOSE_FASTTOGGLE_SIDE), null);
+           		mChooseFastToggleSide.setValue(Settings.System.getInt(getActivity().getContentResolver(),
+                		Settings.System.CHOOSE_FASTTOGGLE_SIDE, 1) + "");
+        	}
 		return false;
 	}
 		   
