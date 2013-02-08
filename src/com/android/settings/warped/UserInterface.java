@@ -35,6 +35,7 @@ OnPreferenceChangeListener {
 	private static final String PREF_ENABLE_VOLUME_OPTIONS = "enable_volume_options";
 	private static final String PREF_STATUSBAR_COLOR = "statusbar_background_color";
 	private static final String PREF_RECENT_KILL_ALL = "recent_kill_all";
+	private static final String PREF_RAM_USAGE_BAR = "ram_usage_bar";
 	
 	
 	Preference mCustomLabel;
@@ -45,6 +46,7 @@ OnPreferenceChangeListener {
 	CheckBoxPreference mVolumeMusic;
 	CheckBoxPreference mEnableVolumeOptions;
 	CheckBoxPreference mRecentKillAll;
+	CheckBoxPreference mRamBar;
 	
     String mCustomLabelText = null;
 	
@@ -61,6 +63,10 @@ OnPreferenceChangeListener {
 	mRecentKillAll = (CheckBoxPreference) findPreference(PREF_RECENT_KILL_ALL);
         mRecentKillAll.setChecked(Settings.System.getBoolean(getActivity ().getContentResolver(),
                 Settings.System.RECENT_KILL_ALL_BUTTON, false));
+	
+	mRamBar = (CheckBoxPreference) findPreference(PREF_RAM_USAGE_BAR);
+        mRamBar.setChecked(Settings.System.getBoolean(getActivity ().getContentResolver(),
+                Settings.System.RAM_USAGE_BAR, false));
 	
 	mBackgroundColor = (ColorPickerPreference) findPreference(PREF_STATUSBAR_COLOR);
         mBackgroundColor.setOnPreferenceChangeListener(this);
@@ -115,6 +121,11 @@ OnPreferenceChangeListener {
 									   Settings.System.VIBRATE_NOTIF_EXPAND,
 									   ((CheckBoxPreference) preference).isChecked());
             Helpers.restartSystemUI();
+            return true;
+	} else if (preference == mRamBar) {
+            boolean checked = ((CheckBoxPreference)preference).isChecked();
+            Settings.System.putBoolean(getActivity().getContentResolver(),
+                    Settings.System.RAM_USAGE_BAR, checked ? true : false);
             return true;
         } else if (preference == mVolumeRockerWake) {
             Settings.System.putBoolean(getActivity().getContentResolver(),
