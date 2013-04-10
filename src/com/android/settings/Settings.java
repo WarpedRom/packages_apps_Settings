@@ -393,7 +393,11 @@ public class Settings extends PreferenceActivity
                 VpnSettings.class.getName().equals(fragmentName) ||
                 SecuritySettings.class.getName().equals(fragmentName) ||
                 InstalledAppDetails.class.getName().equals(fragmentName) ||
-                ChooseLockGenericFragment.class.getName().equals(fragmentName)) {
+                ChooseLockGenericFragment.class.getName().equals(fragmentName) ||
+                TetherSettings.class.getName().equals(fragmentName) ||
+                ApnSettings.class.getName().equals(fragmentName) ||
+                LocationSettings.class.getName().equals(fragmentName) ||
+                ZonePicker.class.getName().equals(fragmentName)) {
             intent.putExtra(EXTRA_CLEAR_UI_OPTIONS, true);
         }
 
@@ -424,10 +428,10 @@ public class Settings extends PreferenceActivity
             int id = (int) header.id;
             if (id == R.id.operator_settings || id == R.id.manufacturer_settings) {
                 Utils.updateHeaderToSpecificActivityFromMetaDataOrRemove(this, target, header);
-            } else if (id == R.id.advanced_settings) {
-				if (!needsAdvancedSettings())
-					target.remove(header);
-			} else if (id == R.id.wifi_settings) {
+	    } else if (id == R.id.advanced_settings) {
+			if (!needsAdvancedSettings())
+				target.remove(header);
+            } else if (id == R.id.wifi_settings) {
                 // Remove WiFi Settings if WiFi service is not available.
                 if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_WIFI)) {
                     target.remove(i);
@@ -542,8 +546,8 @@ public class Settings extends PreferenceActivity
         }
         return headerIndex;
     }
-			
-	private boolean needsAdvancedSettings() {
+
+    private boolean needsAdvancedSettings() {
 		return getResources().getBoolean(R.bool.has_advanced_settings);
 	}
 
@@ -840,4 +844,5 @@ public class Settings extends PreferenceActivity
     public static class TextToSpeechSettingsActivity extends Settings { /* empty */ }
     public static class AndroidBeamSettingsActivity extends Settings { /* empty */ }
     public static class WifiDisplaySettingsActivity extends Settings { /* empty */ }
+    public static class DreamSettingsActivity extends Settings { /* empty */ }
 }

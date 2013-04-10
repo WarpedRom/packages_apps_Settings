@@ -94,10 +94,9 @@ OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
     ColorPickerPreference mNavigationBarGlowColor;
     SeekBarPreference mButtonAlpha;
     ColorPickerPreference mNavBar;
-    CheckBoxPreference mEnableNavigationBar;
     ListPreference mNavBarButtonQty;
 	
-	Preference mPendingPreference;
+    Preference mPendingPreference;
     private ShortcutPickerHelper mPicker;
     private int mPendingIconIndex = -1;
     private NavBarCustomAction mPendingNavBarCustomAction = null;
@@ -113,28 +112,28 @@ OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.navbar_settings);
 		
-		PreferenceScreen prefs = getPreferenceScreen();
-		mPicker = new ShortcutPickerHelper(this, this);
+	PreferenceScreen prefs = getPreferenceScreen();
+	mPicker = new ShortcutPickerHelper(this, this);
 		
-		menuDisplayLocation = (ListPreference) findPreference(PREF_MENU_UNLOCK);
+	menuDisplayLocation = (ListPreference) findPreference(PREF_MENU_UNLOCK);
         menuDisplayLocation.setOnPreferenceChangeListener(this);
         menuDisplayLocation.setValue(Settings.System.getInt(getActivity()
-	.getContentResolver(), Settings.System.MENU_LOCATION,
+		.getContentResolver(), Settings.System.MENU_LOCATION,
 		0) + "");
 		
         mNavBarMenuDisplay = (ListPreference) findPreference(PREF_NAVBAR_MENU_DISPLAY);
         mNavBarMenuDisplay.setOnPreferenceChangeListener(this);
         mNavBarMenuDisplay.setValue(Settings.System.getInt(getActivity()
-														   .getContentResolver(), Settings.System.MENU_VISIBILITY,
-														   0) + "");
+		.getContentResolver(), Settings.System.MENU_VISIBILITY,
+		0) + "");
 		
-		mNavBarButtonQty = (ListPreference) findPreference(PREF_NAVBAR_QTY);
+	mNavBarButtonQty = (ListPreference) findPreference(PREF_NAVBAR_QTY);
         mNavBarButtonQty.setOnPreferenceChangeListener(this);
         mNavBarButtonQty.setValue(Settings.System.getInt(getActivity().getContentResolver(),
-														 Settings.System.NAVIGATION_BAR_BUTTONS_QTY, 3) + "");
+		 Settings.System.NAVIGATION_BAR_BUTTONS_QTY, 3) + "");
 
-		final float defaultButtonAlpha = Settings.System.getFloat(getActivity()
-		.getContentResolver(), Settings.System.NAVIGATION_BAR_BUTTON_ALPHA, 0.6f);
+	final float defaultButtonAlpha = Settings.System.getFloat(getActivity()
+	.getContentResolver(), Settings.System.NAVIGATION_BAR_BUTTON_ALPHA, 0.6f);
 
         mButtonAlpha = (SeekBarPreference) findPreference("button_transparency");
         mButtonAlpha.setInitValue((int) (defaultButtonAlpha * 100));
@@ -143,37 +142,29 @@ OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
         mNavigationBarColor = (ColorPickerPreference) findPreference(PREF_NAV_COLOR);
         mNavigationBarColor.setOnPreferenceChangeListener(this);
 		
-		mPicker = new ShortcutPickerHelper(this, this);
+	mPicker = new ShortcutPickerHelper(this, this);
 		
-		boolean hasNavBarByDefault = mContext.getResources().getBoolean(
-																		com.android.internal.R.bool.config_showNavigationBar);
-        mEnableNavigationBar = (CheckBoxPreference) findPreference("enable_nav_bar");
-        mEnableNavigationBar.setChecked(Settings.System.getInt(getContentResolver(),
-															   Settings.System.NAVIGATION_BAR_SHOW, hasNavBarByDefault ? 1 : 0) == 1);
-		
+	boolean hasNavBarByDefault = mContext.getResources().getBoolean(
+		com.android.internal.R.bool.config_showNavigationBar);
 		
         mNavigationBarGlowColor = (ColorPickerPreference) findPreference(PREF_NAV_GLOW_COLOR);
         mNavigationBarGlowColor.setOnPreferenceChangeListener(this);
 
-		mNavBar = (ColorPickerPreference) findPreference(PREF_NAV_BAR_COLOR);
-		mNavBar.setOnPreferenceChangeListener(this);
+	mNavBar = (ColorPickerPreference) findPreference(PREF_NAV_BAR_COLOR);
+	mNavBar.setOnPreferenceChangeListener(this);
 	
         mGlowTimes = (ListPreference) findPreference(PREF_GLOW_TIMES);
         mGlowTimes.setOnPreferenceChangeListener(this);
 		
 
-		mNavButtonsHeight = (ListPreference) findPreference(KEY_NAV_BUTTONS_HEIGHT);
+	mNavButtonsHeight = (ListPreference) findPreference(KEY_NAV_BUTTONS_HEIGHT);
         mNavButtonsHeight.setOnPreferenceChangeListener(this);
 		
         int statusNavButtonsHeight = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-															Settings.System.NAV_BUTTONS_HEIGHT, 48);
-        mNavButtonsHeight.setValue(String.valueOf(statusNavButtonsHeight));
-        mNavButtonsHeight.setSummary(mNavButtonsHeight.getEntry());
+		Settings.System.NAV_BUTTONS_HEIGHT, 48);
+        	mNavButtonsHeight.setValue(String.valueOf(statusNavButtonsHeight));
+        	mNavButtonsHeight.setSummary(mNavButtonsHeight.getEntry());
 		
-		// don't allow devices that must use a navigation bar to disable it
-        if (hasNavBarByDefault) {
-            prefs.removePreference(mEnableNavigationBar);
-        }
 		refreshSettings();
 		setHasOptionsMenu(true);
        		updateGlowTimesSummary();
@@ -280,14 +271,14 @@ OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
             } else {
                 if (longpress) {
                     Settings.System.putString(getContentResolver(),
-											  Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[index],
-											  (String) newValue);
+		    Settings.System.NAVIGATION_LONGPRESS_ACTIVITIES[index],
+			(String) newValue);
                 } else {
                     Settings.System.putString(getContentResolver(),
-											  Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[index],
-											  (String) newValue);
+		    Settings.System.NAVIGATION_CUSTOM_ACTIVITIES[index],
+			(String) newValue);
                     Settings.System.putString(getContentResolver(),
-											  Settings.System.NAVIGATION_CUSTOM_APP_ICONS[index], "");
+			Settings.System.NAVIGATION_CUSTOM_APP_ICONS[index], "");
                 }
             }
             refreshSettings();
@@ -296,7 +287,7 @@ OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
 		} else if (preference == mNavBarButtonQty) {
             int val = Integer.parseInt((String) newValue);
             Settings.System.putInt(getActivity().getContentResolver(),
-								   Settings.System.NAVIGATION_BAR_BUTTONS_QTY, val);
+		Settings.System.NAVIGATION_BAR_BUTTONS_QTY, val);
             refreshSettings();
             return true;
 	} else if (preference == mNavButtonsHeight) {
@@ -328,22 +319,6 @@ OnPreferenceChangeListener, ShortcutPickerHelper.OnPickListener {
         }
 		return result;
 	}
-
-		
-	@Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-		Preference preference) {
-        if (preference == mEnableNavigationBar) {
-			
-            Settings.System.putInt(getActivity().getContentResolver(),
-								   Settings.System.NAVIGATION_BAR_SHOW,
-								   ((CheckBoxPreference) preference).isChecked() ? 1 : 0);
-            Helpers.restartSystemUI();
-            return true;
-		}
-			return super.onPreferenceTreeClick(preferenceScreen, preference);
-	}
-	
 	
 	private void updateGlowTimesSummary() {
         int resId;

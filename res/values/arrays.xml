@@ -772,7 +772,7 @@
         <!-- Always allow app to send to premium SMS short code. -->
         <item>Always allow</item>
     </string-array>
-    
+
     <!-- clock stuff -->
     <string-array name="clock_style_entries" translatable="false">
         <item>@string/right_clock</item>
@@ -1439,4 +1439,16 @@
         <item>2</item>
     </string-array>
 
+    <!-- Expanded desktop -->
+    <string-array name="expanded_desktop_entries" translatable="false">
+        <item>@string/expanded_desktop_disabled</item>
+        <item>@string/expanded_desktop_status_bar</item>
+        <item>@string/expanded_desktop_no_status_bar</item>
+    </string-array>
+
+    <string-array name="expanded_desktop_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

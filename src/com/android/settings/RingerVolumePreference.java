@@ -197,7 +197,7 @@ public class RingerVolumePreference extends VolumePreference {
             getContext().registerReceiver(mRingModeChangedReceiver, filter);
         }
 
-		// Separate ringtone and notification streams
+	// Separate ringtone and notification streams
 		final CheckBox linkCheckBox = (CheckBox) view.findViewById(R.id.link_ring_and_volume);
 		final CheckBox linkMuteStates = (CheckBox) view.findViewById(R.id.link_mutes);
 		final View ringerSection = view.findViewById(R.id.ringer_section);
@@ -410,8 +410,8 @@ public class RingerVolumePreference extends VolumePreference {
             }
         };
     }
-	private static int getCurrentMutableStreams(Context c) {
-		final int defaultMuteStreams = ((1 << AudioSystem.STREAM_RING)|(1 << AudioSystem.STREAM_NOTIFICATION)|
+    private static int getCurrentMutableStreams(Context c) {
+	final int defaultMuteStreams = ((1 << AudioSystem.STREAM_RING)|(1 << AudioSystem.STREAM_NOTIFICATION)|
 			(1 << AudioSystem.STREAM_SYSTEM)|(1 << AudioSystem.STREAM_SYSTEM_ENFORCED));
 		return Settings.System.getInt(c.getContentResolver(),
 			Settings.System.MODE_RINGER_STREAMS_AFFECTED, defaultMuteStreams);

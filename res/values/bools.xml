@@ -32,8 +32,8 @@
 
     <!-- Whether to show a preference item for regulatory information in About phone -->
     <bool name="config_show_regulatory_info">false</bool>
-    
-    <!-- Whether or not to display the notification LED settings -->
+
+        <!-- Whether or not to display the notification LED settings -->
     <bool name="has_notification_led">true</bool>
 
     <!-- Whether device has camera flash or torch capabilities -->
@@ -49,6 +49,6 @@
     <bool name="has_color_tuning">true</bool>
     
     <!-- Whether or not device settings should be displayed or not for the device -->
-    <bool name="has_advanced_settings">false</bool>
+    <bool name="has_advanced_settings">true</bool>
 
 </resources>

@@ -14,6 +14,14 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:title="General Behavior">
+
+	<ListPreference
+        android:key="expanded_desktop"
+        android:title="@string/power_menu_expanded_desktop"
+        android:entries="@array/expanded_desktop_entries"
+        android:entryValues="@array/expanded_desktop_values"
+        android:persistent="false" />
+
         <CheckBoxPreference
             android:key="use_alt_resolver"
             android:title="@string/alt_resolver"

@@ -57,7 +57,7 @@
         android:breadCrumbTitle="@string/wireless_networks_settings_title"
         android:fragment="com.android.settings.WirelessSettings"
         android:icon="@drawable/empty_icon" />
-    
+
     <!-- Warped Settings -->
     <header android:id="@+id/rom_section"
         android:title="@string/rom_settings_header" />
@@ -67,18 +67,7 @@
         android:icon="@drawable/zzic_settings_warped"
         android:fragment="com.android.settings.warped.WarpedSettings"
         android:title="@string/warped_settings" />
-        
-    <!-- Themes -->
-    <header
-        android:id="@+id/themes_settings"
-        android:icon="@drawable/ic_settings_themes"
-        android:title="@string/themes_settings_title">
-        <intent
-            android:action="android.intent.action.MAIN"
-            android:targetPackage="com.tmobile.themechooser"
-            android:targetClass="com.tmobile.themechooser.ThemeChooser" />
-    </header>
-    
+
     <header android:id="@+id/advanced_settings"
             android:title="@string/advanced_settings_title"
             android:icon="@drawable/ic_settings_advanced">
@@ -87,13 +76,6 @@
                 android:targetPackage="com.cyanogenmod.settings.device"
                 android:targetClass="com.cyanogenmod.settings.device.DeviceSettings" />
     </header>
-
-     <!-- Performance -->
-    <header
-        android:id="@+id/performance_settings"
-        android:fragment="com.android.settings.warped.PerformanceSettings"
-        android:icon="@drawable/ic_settings_performance"
-        android:title="@string/performance_settings_title" />
 
     <!-- DEVICE -->
     <header android:id="@+id/device_section"

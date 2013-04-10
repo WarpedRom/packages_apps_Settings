@@ -2,11 +2,19 @@ package com.android.settings.warped;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.RemoteException;
+import android.os.ServiceManager;
+import android.os.UserHandle;
+import android.view.IWindowManager;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
@@ -16,11 +24,16 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.view.LayoutInflater;
 import android.widget.EditText;
+import android.util.Log;
+import android.view.WindowManagerGlobal;
 
 import com.android.settings.SettingsPreferenceFragment;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 import com.android.settings.R;
 import com.android.settings.util.Helpers;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserInterface extends SettingsPreferenceFragment implements
 OnPreferenceChangeListener {
@@ -36,6 +49,8 @@ OnPreferenceChangeListener {
 	private static final String PREF_STATUSBAR_COLOR = "statusbar_background_color";
 	private static final String PREF_RECENT_KILL_ALL = "recent_kill_all";
 	private static final String PREF_RAM_USAGE_BAR = "ram_usage_bar";
+	private static final String KEY_EXPANDED_DESKTOP = "expanded_desktop";
+	private static final String KEY_EXPANDED_DESKTOP_NO_NAVBAR = "expanded_desktop_no_navbar";
 	
 	
 	Preference mCustomLabel;
@@ -47,6 +62,7 @@ OnPreferenceChangeListener {
 	CheckBoxPreference mEnableVolumeOptions;
 	CheckBoxPreference mRecentKillAll;
 	CheckBoxPreference mRamBar;
+	private ListPreference mExpandedDesktopPref;
 	
     String mCustomLabelText = null;
 	
@@ -56,6 +72,27 @@ OnPreferenceChangeListener {
         setTitle(R.string.user_interface_title);
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.user_interface);
+	PreferenceScreen prefScreen = getPreferenceScreen();
+
+	// Expanded desktop
+        mExpandedDesktopPref = (ListPreference) findPreference(KEY_EXPANDED_DESKTOP);
+   
+        int expandedDesktopValue = Settings.System.getInt(getContentResolver(),
+                Settings.System.EXPANDED_DESKTOP_STYLE, 0);
+
+        // Hide no-op "Status bar visible" mode on devices without navbar
+        try {
+            if (WindowManagerGlobal.getWindowManagerService().hasNavigationBar()) {
+                mExpandedDesktopPref.setOnPreferenceChangeListener(this);
+                mExpandedDesktopPref.setValue(String.valueOf(expandedDesktopValue));
+                updateExpandedDesktop(expandedDesktopValue);
+ 
+            } else {
+                prefScreen.removePreference(mExpandedDesktopPref);
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error getting navigation bar status");
+        }
 		
         mCustomLabel = findPreference(PREF_CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
@@ -104,13 +141,17 @@ OnPreferenceChangeListener {
             Settings.System.putInt(getActivity().getContentResolver(),
 	    Settings.System.STATUSBAR_BACKGROUND_COLOR, intHex);
             return true;
-	}
+	} else if (preference == mExpandedDesktopPref) {
+            int expandedDesktopValue = Integer.valueOf((String) newValue);
+            updateExpandedDesktop(expandedDesktopValue);
+            return true;
+        }
 	return false;
     }
 	
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
-										 final Preference preference) {
+	final Preference preference) {
         if (preference == mUseAltResolver) {
 			Settings.System.putBoolean(getActivity().getContentResolver(),
 				Settings.System.ACTIVITY_RESOLVER_USE_ALT,
@@ -118,8 +159,8 @@ OnPreferenceChangeListener {
 			return true;
 		} else if (preference == mVibrateOnExpand) {
             Settings.System.putBoolean(getActivity().getContentResolver(),
-									   Settings.System.VIBRATE_NOTIF_EXPAND,
-									   ((CheckBoxPreference) preference).isChecked());
+		Settings.System.VIBRATE_NOTIF_EXPAND,
+		((CheckBoxPreference) preference).isChecked());
             Helpers.restartSystemUI();
             return true;
 	} else if (preference == mRamBar) {
@@ -129,19 +170,19 @@ OnPreferenceChangeListener {
             return true;
         } else if (preference == mVolumeRockerWake) {
             Settings.System.putBoolean(getActivity().getContentResolver(),
-									   Settings.System.VOLUME_WAKE_SCREEN,
-									   ((CheckBoxPreference) preference).isChecked());
+		Settings.System.VOLUME_WAKE_SCREEN,
+		((CheckBoxPreference) preference).isChecked());
             return true;
 		} else if (preference == mVolumeMusic) {
 			
             Settings.System.putBoolean(getActivity().getContentResolver(),
-									   Settings.System.VOLUME_MUSIC_CONTROLS,
-									   ((CheckBoxPreference) preference).isChecked());
+		Settings.System.VOLUME_MUSIC_CONTROLS,
+		((CheckBoxPreference) preference).isChecked());
             return true;
 		} else  if (preference == mEnableVolumeOptions) {
 			boolean checked = ((CheckBoxPreference) preference).isChecked();
 			Settings.System.putInt(getActivity().getContentResolver(),
-								   Settings.System.ENABLE_VOLUME_OPTIONS, checked ? 1 : 0);
+			Settings.System.ENABLE_VOLUME_OPTIONS, checked ? 1 : 0);
 			return true;
 
 	} else if (preference == mRecentKillAll) {
@@ -190,6 +231,31 @@ OnPreferenceChangeListener {
             mCustomLabel.setSummary(R.string.custom_carrier_label_notset);
         } else {
             mCustomLabel.setSummary(mCustomLabelText);
+        }
+    }
+    
+    private void updateExpandedDesktop(int value) {
+        ContentResolver cr = getContentResolver();
+        Resources res = getResources();
+        int summary = -1;
+
+        Settings.System.putInt(cr, Settings.System.EXPANDED_DESKTOP_STYLE, value);
+
+        if (value == 0) {
+            // Expanded desktop deactivated
+            Settings.System.putInt(cr, Settings.System.POWER_MENU_EXPANDED_DESKTOP_ENABLED, 0);
+            Settings.System.putInt(cr, Settings.System.EXPANDED_DESKTOP_STATE, 0);
+            summary = R.string.expanded_desktop_disabled;
+        } else if (value == 1) {
+      	    Settings.System.putInt(cr, Settings.System.POWER_MENU_EXPANDED_DESKTOP_ENABLED, 1);
+            summary = R.string.expanded_desktop_status_bar;
+        } else if (value == 2) {
+            Settings.System.putInt(cr, Settings.System.POWER_MENU_EXPANDED_DESKTOP_ENABLED, 1);
+            summary = R.string.expanded_desktop_no_status_bar;
+        }
+
+        if (mExpandedDesktopPref != null && summary != -1) {
+            mExpandedDesktopPref.setSummary(res.getString(summary));
         }
     }
 }
