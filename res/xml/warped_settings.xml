@@ -49,5 +49,10 @@
             android:fragment="com.android.settings.warped.LEDControl"
             android:title="@string/led_options"
             android:summary="@string/header_summary_led" />
+
+	<PreferenceScreen
+            android:id="@+id/propmodder"
+            android:title="@string/propmodder_title"
+            android:fragment="com.android.settings.warped.PropModder" />
             
 </PreferenceScreen>

@@ -22,4 +22,9 @@
         android:key="lockscreen_targets"
         android:summary="@string/lockscreen_target_summary"
         android:title="@string/lockscreen_target_title" />
+
+    <Preference
+        android:fragment="com.android.settings.warped.LockScreenSettings"
+        android:key="lockscreen_settings"
+        android:title="@string/lockscreen_settings_title" />
 </PreferenceScreen>
